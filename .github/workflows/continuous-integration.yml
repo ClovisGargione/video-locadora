@@ -23,7 +23,6 @@ jobs:
       with:
         java-version: '21'
         distribution: 'adopt'
-        cache: maven
     - name: Docker compose Build
       working-directory: ./
       run: docker compose build

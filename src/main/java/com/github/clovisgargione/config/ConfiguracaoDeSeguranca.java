@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+@EnableMethodSecurity
 @EnableWebSecurity
 @Configuration
 public class ConfiguracaoDeSeguranca {
@@ -26,13 +28,13 @@ public class ConfiguracaoDeSeguranca {
 	
 	@Bean
 	SecurityFilterChain authFilterChain(HttpSecurity httpSecurity) throws Exception {
-		String[] caminhosPermitidos = new String[] { "/erro", "/home", "/login", "/server", "/encrypt/**", "/registrar", "/usuarios", "/webjars/**", "/js/**",
+		String[] caminhosPermitidos = new String[] { "/erro", "/home", "/login", "/server", "/encrypt/**", "/cadastrar", "/webjars/**", "/js/**",
 		"/jquery*"};
 		httpSecurity
-		.authorizeHttpRequests(req -> 
-            req.requestMatchers(caminhosPermitidos).permitAll()
-            .anyRequest().authenticated()
-        )
+		.authorizeHttpRequests(req -> {
+            req.requestMatchers(caminhosPermitidos).permitAll();
+            req.anyRequest().authenticated();
+		})
 			.httpBasic(withDefaults())
 			.formLogin(form -> form.defaultSuccessUrl("/home").failureUrl("/login").loginProcessingUrl("/login"))
             .logout((logout) -> logout.permitAll().deleteCookies("CUSTOMSESSIONID"))

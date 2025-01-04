@@ -10,7 +10,7 @@ import com.github.clovisgargione.application.core.domain.Usuario;
 @Mapper(componentModel = ComponentModel.SPRING)
 public interface UsuarioEntityMapper {
 
-	UsuarioEntity toUsuarioEntity(Usuario usuario);
+	UsuarioEntity toUsuarioEntity(Usuario usuario, @Context CycleAvoidingMappingContext context);
 	
 	Usuario toUsuario(UsuarioEntity usuarioEntity, @Context CycleAvoidingMappingContext context);
 }

@@ -21,7 +21,7 @@ public class InsertUsuarioAdapter implements InsertUsuarioOutputPort {
 
 	@Override
 	public Usuario insert(Usuario usuario) {
-		var usuarioEntity = this.usuarioEntityMapper.toUsuarioEntity(usuario);
+		var usuarioEntity = this.usuarioEntityMapper.toUsuarioEntity(usuario, new CycleAvoidingMappingContext());
 		EnderecoEntity endereco = usuarioEntity.getEndereco();
 		endereco.setUsuario(usuarioEntity);
 		this.usuarioRepository.save(usuarioEntity);

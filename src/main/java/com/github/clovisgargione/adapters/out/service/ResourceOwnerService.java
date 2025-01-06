@@ -1,4 +1,4 @@
-package com.github.clovisgargione.adapters.out.repository;
+package com.github.clovisgargione.adapters.out.service;
 
 import java.util.Optional;
 
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.github.clovisgargione.adapters.out.repository.UsuarioRepository;
 import com.github.clovisgargione.adapters.out.repository.entity.UsuarioEntity;
 import com.github.clovisgargione.config.ResourceOwner;
 

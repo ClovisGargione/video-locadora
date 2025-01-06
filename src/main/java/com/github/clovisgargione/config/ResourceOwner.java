@@ -56,5 +56,9 @@ public class ResourceOwner implements UserDetails {
 	public boolean isEnabled() {
 		return this.usuario.getCredenciais().isHabilitado();
 	}
+	
+	public UsuarioEntity getUsuario() {
+		return this.usuario;
+	}
 
 }

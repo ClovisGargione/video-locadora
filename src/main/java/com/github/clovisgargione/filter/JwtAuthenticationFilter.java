@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.github.clovisgargione.adapters.out.service.JwtService;
+import com.github.clovisgargione.tenant.TenantContext;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -50,6 +51,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             
             if (userEmail != null && authentication == null) {
+            	String tenantName = request.getHeader("X-TenantID");
+        		TenantContext.setCurrentTenant(tenantName);
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
                 if (jwtService.isTokenValid(jwt, userDetails)) {

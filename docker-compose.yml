@@ -1,19 +1,4 @@
 services:
-  db:
-    image: mysql:latest
-    restart: always
-    environment:
-      TZ: America/Sao_Paulo
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: video-locadora
-    ports:
-      - 3306:3306
-    expose:
-      - 3306
-    volumes:
-      - dados-banco:/var/lib/mysql
-    networks:
-      - msnetwork
   video-locadora:
     image: clovisgargione/video-locadora
     restart: always
@@ -21,19 +6,16 @@ services:
     working_dir: /video-locadora
     environment:
       TZ: America/Sao_Paulo
-      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/video-locadora
-      SPRING.DATASOURCE.USERNAME: root
-      SPRING.DATASOURCE.PASSWORD: root
     networks:
-      - msnetwork
+      msnetwork: {}
     ports:
       - 8082:8085
     command: mvn spring-boot:run
-    depends_on:
-      - db
 networks:
   msnetwork:
     driver: bridge
+    external: true
+    attachable: true
 volumes:
   dados-banco:
-    external: true    
+    external: true

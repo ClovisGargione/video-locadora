@@ -1,6 +1,7 @@
 package com.github.clovisgargione.tenant.filter;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class TenantFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		String tenantName = req.getHeader("X-TenantID");
+		//String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 		TenantContext.setCurrentTenant(tenantName);
 
 		try {

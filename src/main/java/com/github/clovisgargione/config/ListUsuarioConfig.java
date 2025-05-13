@@ -12,6 +12,6 @@ public class ListUsuarioConfig {
 	@Bean
 	ListUsuarioUseCase listUsuarioUseCase(ListUsuarioAdapter listUsuarioAdapter) {
 		return new ListUsuarioUseCase(listUsuarioAdapter);
-		
+
 	}
 }

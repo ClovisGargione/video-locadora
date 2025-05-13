@@ -6,6 +6,7 @@ services:
     working_dir: /video-locadora
     environment:
       TZ: America/Sao_Paulo
+      DB_IP: banco
     networks:
       msnetwork: {}
     ports:
@@ -13,9 +14,4 @@ services:
     command: mvn spring-boot:run
 networks:
   msnetwork:
-    driver: bridge
-    external: true
-    attachable: true
-volumes:
-  dados-banco:
     external: true

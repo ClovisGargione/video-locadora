@@ -10,8 +10,8 @@ import com.github.clovisgargione.adapters.in.controller.request.LoginUsuarioRequ
 import com.github.clovisgargione.adapters.in.controller.request.UsuarioRequest;
 import com.github.clovisgargione.adapters.in.controller.response.TokenResponse;
 import com.github.clovisgargione.adapters.in.controller.response.UsuarioResponse;
+import com.github.clovisgargione.adapters.out.exception.UsuarioException;
 import com.github.clovisgargione.adapters.out.repository.entity.UsuarioEntity;
-import com.github.clovisgargione.adapters.out.repository.mapper.CycleAvoidingMappingContext;
 import com.github.clovisgargione.adapters.out.repository.mapper.UsuarioEntityMapper;
 import com.github.clovisgargione.adapters.out.service.JwtService;
 import com.github.clovisgargione.application.core.domain.Usuario;
@@ -39,7 +39,7 @@ public class AuthenticationService {
 	
 	private final UsuarioEntityMapper usuarioEntityMapper;
 	
-	public UsuarioResponse signup(UsuarioRequest usuarioRequest) {
+	public UsuarioResponse signup(UsuarioRequest usuarioRequest) throws UsuarioException {
 		usuarioRequest.getCredenciais().setSenha(userPasswordEncoder.encode(usuarioRequest.getCredenciais().getSenha()));
 		var usuario = this.usuarioMapper.toUsuario(usuarioRequest);
 		var novoUsuario = this.insertUsuarioInputPort.insert(usuario);
@@ -56,7 +56,7 @@ public class AuthenticationService {
                 )
         );
         Usuario usuario = this.findByUsernameInputPort.findByUsername(input.getEmail());
-        UsuarioEntity entity = usuarioEntityMapper.toUsuarioEntity(usuario, new CycleAvoidingMappingContext());
+        UsuarioEntity entity = usuarioEntityMapper.toUsuarioEntity(usuario);
         String jwtToken = jwtService.generateToken(new ResourceOwner(entity));
         TokenResponse response = new TokenResponse(jwtToken, jwtService.getExpirationTime());
         return response;

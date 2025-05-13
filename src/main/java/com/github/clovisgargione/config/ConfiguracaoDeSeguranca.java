@@ -34,7 +34,7 @@ public class ConfiguracaoDeSeguranca {
 	
 	@Bean
 	SecurityFilterChain authFilterChain(HttpSecurity httpSecurity) throws Exception {
-		String[] caminhosPermitidos = new String[] { "/auth/**" };
+		String[] caminhosPermitidos = new String[] { "/auth/**"};
 		httpSecurity
 		.authorizeHttpRequests(req -> {
             req.requestMatchers(caminhosPermitidos).permitAll();

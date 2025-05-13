@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             
             if (userEmail != null && authentication == null) {
             	String tenantName = request.getHeader("X-TenantID");
-        		TenantContext.setCurrentTenant(tenantName);
+            	TenantContext.setCurrentTenant(tenantName);
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
                 if (jwtService.isTokenValid(jwt, userDetails)) {
